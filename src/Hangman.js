@@ -9,7 +9,32 @@ function HangmanCtrl($scope) {
   $scope.isReady = false;
   
   $scope.chooseWordRandomly = function() {
-    var words = ["RETROSPECTIVE","BOBBY"];
+    var words = [
+    "RETROSPECTIVE",
+    "AGILE",
+    "SCRUM",
+    "ITERATION",
+    "PRODUCT", 
+    "OWNER",
+    "MASTER",
+    "SCRUM", 
+    "TEAM",
+    "USER", 
+    "STORY",
+    "SPRINT",
+    "PRODUCT", 
+    "BACKLOG",
+    "RELEASE",
+    "SPRINT",
+    "TIMEBOXING",
+    "BURN", 
+    "DOWN", 
+    "CHART",
+    "TEST",
+    "PAIR",
+    "STANDUP", 
+    "MEETING",
+    "ALLIANCE"];
     return words[Math.floor((Math.random()*words.length))].toLowerCase();
   }
   
