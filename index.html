@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app>
+<head>
+  <title>Hangman</title>
+  <script type="text/javascript" src="lib/angular-1.0.1.min.js"></script>
+  <script type="text/javascript" src="src/Hangman.js"></script>
+  <link rel="stylesheet" type="text/css" href="hangman.css">
+</head>
+<body>
+  <div ng-controller="HangmanCtrl">
+    <div class="bear bear_{{lives}}"></div>
+    <div> <img class="heart" src="images/heart.png" ng-repeat="heart in displayHearts()"></div>
+    <div>{{placeholderText}}</div>
+    <div id="usedCharacters">
+      <span ng-repeat="char in usedCharacters">
+        {{char}}
+      </span>
+    </div>
+    <div class="is_win_{{isWin()}}">You win</div>
+    <div class="is_lose_{{isLose()}}">You lose</div>
+    <div class="is_lose_{{isLose()}}">The Correct Word Was "{{targetWord}}"</div>
+    <div class="input_container">
+      <input type="text" ng-model="inputText" placeholder="Enter a character"></input>
+      <button ng-click="enterCharacter(inputText)" class="end_game_{{isLose() || isWin() || !isReady}}">Submit</button>
+      <button ng-click="newGame(chooseWordRandomly())">New Game</button>
+    </div>
+  </div>
+</body>
+</html>
