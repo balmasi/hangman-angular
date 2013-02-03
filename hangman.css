@@ -5,6 +5,24 @@
 	border: solid 1px;
 }
 
+div,p,span{
+
+	font-family: 'Myriad Pro', Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+}
+
+.letter{
+	font-size: 1.8em;
+	padding:5px;
+}
+
+#usedCharacters{
+	font-size: 1.2em;
+}
+.heart{
+	padding:5px;
+}
+
 .end_game_true {
   display: none;
 }

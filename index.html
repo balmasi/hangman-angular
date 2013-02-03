@@ -11,9 +11,9 @@
   <div ng-controller="HangmanCtrl">
     <div class="bear bear_{{lives}}"></div>
     <div> <img class="heart" src="images/heart.png" ng-repeat="heart in displayHearts()"></div>
-    <div>{{placeholderText}}</div>
+    <div><span class="letter" ng-repeat="letter in placeholderText">{{letter}}</span></div>
     <div id="usedCharacters">
-      <span ng-repeat="char in usedCharacters">
+      <p>Used:</p><span ng-repeat="char in usedCharacters">
         {{char}}
       </span>
     </div>

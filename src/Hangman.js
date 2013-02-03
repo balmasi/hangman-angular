@@ -9,39 +9,12 @@ function HangmanCtrl($scope) {
   $scope.isReady = false;
   
   $scope.chooseWordRandomly = function() {
-    var words = [
-    "AGILE",
-    "SCRUM",
-    "ITERATION",
-    "PRODUCT", 
-    "OWNER",
-    "MASTER",
-    "SCRUM", 
-    "TEAM",
-    "USER", 
-    "STORY",
-    "SPRINT",
-    "PRODUCT", 
-    "BACKLOG",
-    "RELEASE",
-    "SPRINT",
-    "TIMEBOXING",
-    "BURN", 
-    "DOWN", 
-    "CHART",
-    "TEST",
-    "PAIR",
-    "STANDUP", 
-    "MEETING",
-    "ALLIANCE",
-    "RETROSPECTIVE"
-    ];
-    return words[Math.floor((Math.random()*words.length)+1)].toLowerCase();
+    var words = ["RETROSPECTIVE","BOBBY"];
+    return words[Math.floor((Math.random()*words.length))].toLowerCase();
   }
   
   $scope.newGame = function(word) {
     $scope.lives = 5;
-
     $scope.correctCharacters = [];
     $scope.usedCharacters = [];
     $scope.targetWord = word;
@@ -63,7 +36,7 @@ function HangmanCtrl($scope) {
         result += '_';
       }
     }
-    return result;
+    return result.split('');
   }
   
   $scope.enterCharacter = function(c) {
@@ -77,11 +50,12 @@ function HangmanCtrl($scope) {
     }
     if (!found) {
       $scope.lives -= 1;
-      if (!contains($scope.usedCharacters,c.toUpperCase())){
-        $scope.usedCharacters.push(c.toUpperCase());
+      if (!contains($scope.usedCharacters,c)){
+        $scope.usedCharacters.push(c);
       }
     }
     $scope.placeholderText = $scope.displayPlaceholderText();
+    console.log($scope.displayPlaceholderText());
     $scope.inputText = "";
   }
 
