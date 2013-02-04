@@ -94,27 +94,27 @@ div,p,span,button{
 /*==============BEAR====================*/
 
 .bear_5 {
-	background: url('./images/Bear5.png');
+	background: url('../images/Bear5.png');
 }
 
 .bear_4 {
-	background: url('./images/Bear4.png');
+	background: url('../images/Bear4.png');
 }
 
 .bear_3 {
-	background: url('./images/Bear3.png');
+	background: url('../images/Bear3.png');
 }
 
 .bear_2 {
-	background: url('./images/Bear2.png');
+	background: url('../images/Bear2.png');
 }
 
 .bear_1 {
-	background: url('./images/Bear1.png');
+	background: url('../images/Bear1.png');
 }
 
 .bear_0 {
-	background: url('./images/Bear0.png');
+	background: url('../images/Bear0.png');
 }
 
 .bear{
