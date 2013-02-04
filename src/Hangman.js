@@ -11,7 +11,7 @@ String.prototype.replaceAt = function(index,c){
 function HangmanCtrl($scope) {
   $scope.lives = 0;
   $scope.inputText = "";
-  $scope.isReady = false;
+  $scope.gameStarted = false;
   
   $scope.chooseWordRandomly = function() {
     var words = [
@@ -49,7 +49,7 @@ function HangmanCtrl($scope) {
     $scope.targetWord = word;
     $scope.targetLeft = word;
     $scope.placeholderText = word.replace(/./ig,"_").split('');
-    $scope.isReady = true;
+    $scope.gameStarted = true;
   }
   
   $scope.enterCharacter = function(c) {
@@ -80,6 +80,6 @@ function HangmanCtrl($scope) {
   }
 
   $scope.isLose = function() {
-    return ($scope.lives < 1 && $scope.isReady);
+    return ($scope.lives < 1 && $scope.gameStarted);
   }
 }

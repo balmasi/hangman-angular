@@ -8,26 +8,27 @@
   <link rel="stylesheet" type="text/css" href="hangman.css">
 </head>
 <body>
-  <div ng-controller="HangmanCtrl">
-    <span>{{targetWord}}</span>
+  <div ng-controller="HangmanCtrl" id="HangmanCtrl">
+    <div ng-show="!gameStarted || isWin() || isLose()" id="cover">
+      <p class="win" ng-show="isWin()">You win</p>
+      <p class="lose" ng-show="isLose()">You lose,The Correct Word Was "{{targetWord}}"</p>
+      <button id="newGameBtn" ng-click="newGame(chooseWordRandomly())">New Game</button>
+    </div>
+
     <div class="bear bear_{{lives}}"></div>
     <div> <img class="heart" src="images/heart.png" ng-repeat="heart in displayHearts()"></div>
     <div><span class="letter" ng-repeat="letter in placeholderText">{{letter}}</span></div>
     <div id="usedCharacters">
-      <p>Used:</p><span ng-repeat="char in usedCharacters">
-      {{char}}
-    </span>
+      <span ng-show="gameStarted">Used:</span>
+      <span class="usedChar" ng-repeat="char in usedCharacters">{{char}}</span>
+    </div>
+    <div id="inputContainer">
+      <form name="guessForm">
+        <input id="guessText" name="guess" type="text" ng-maxlength="1" ng-model="inputText" placeholder="Enter a character" ng-show="gameStarted"></input>
+        <input id="submitGuess" type="submit" value="Submit" ng-click="enterCharacter(inputText)" ng-show="gameStarted"></input>
+        <span class="error" ng-show="guessForm.guess.$error.maxlength">Too long!</span>
+      </form>
+    </div>
   </div>
-  <div ng-show="isWin()">You win</div>
-  <div ng-show="isLose()">You lose,The Correct Word Was "{{targetWord}}"</div>
-  <div class="input_container">
-    <form name="guessForm">
-      <input name="guess" type="text" ng-maxlength="1" ng-model="inputText" placeholder="Enter a character"></input>
-      <input type="submit" value="Submit" ng-click="enterCharacter(inputText)" class="end_game_{{isLose() || isWin() || !isReady}}"></input>
-      <button ng-click="newGame(chooseWordRandomly())">New Game</button>
-      <span class="error" ng-show="guessForm.guess.$error.maxlength">Too long!</span>
-    </form>
-  </div>
-</div>
 </body>
 </html>
