@@ -2,10 +2,15 @@ function contains(arr,obj) {
   return (arr.indexOf(obj) != -1);
 }
 
+String.prototype.replaceAt = function(index,c){
+  var a = this.split("");
+  a[index] = c;
+  return a.join("");
+}
+
 function HangmanCtrl($scope) {
   $scope.lives = 0;
   $scope.inputText = "";
-  $scope.placeholderText = "";
   $scope.isReady = false;
   
   $scope.chooseWordRandomly = function() {
@@ -35,74 +40,46 @@ function HangmanCtrl($scope) {
     "STANDUP", 
     "MEETING",
     "ALLIANCE"];
-    return words[Math.floor((Math.random()*words.length))].toLowerCase();
+    return words[Math.floor((Math.random()*words.length))];
   }
   
   $scope.newGame = function(word) {
     $scope.lives = 5;
-    $scope.correctCharacters = [];
     $scope.usedCharacters = [];
     $scope.targetWord = word;
-    $scope.placeholderText = $scope.displayPlaceholderText();
+    $scope.targetLeft = word;
+    $scope.placeholderText = word.replace(/./ig,"_").split('');
     $scope.isReady = true;
   }
   
-  $scope.displayPlaceholderText = function() {
-    if (!$scope.targetWord) {
-      return '';
-    }
-    
-    //Result is the new word placeholder
-    var result = '';
-    for(var index=0; index < $scope.targetWord.length; ++index) {
-      if (contains($scope.correctCharacters, $scope.targetWord[index])) {
-        result += $scope.targetWord[index];
-      } else {
-        result += '_';
-      }
-    }
-    return result.split('');
-  }
-  
   $scope.enterCharacter = function(c) {
-    var index, found = false;
-    for (index=0; index < $scope.targetWord.length; ++index) {
-      if ($scope.targetWord[index] == c.toLowerCase()) {
-        $scope.correctCharacters.push(c.toLowerCase());
-        found = true
-        break;
+    if (!c.length) { return;}
+    var c = c.toUpperCase(), charRegex = new RegExp(c,"ig"), index;
+    if ($scope.targetWord.match(charRegex)){
+      index = $scope.targetLeft.indexOf(c);
+      while (index >= 0){
+        $scope.targetLeft= $scope.targetLeft.replace(c,'_');
+        $scope.placeholderText[index] = c;
+        index = $scope.targetLeft.indexOf(c)
       }
     }
-    if (!found) {
+    else if (!contains($scope.usedCharacters,c)){
       $scope.lives -= 1;
-      if (!contains($scope.usedCharacters,c)){
-        $scope.usedCharacters.push(c);
-      }
+      $scope.usedCharacters.push(c);
     }
-    $scope.placeholderText = $scope.displayPlaceholderText();
-    console.log($scope.displayPlaceholderText());
     $scope.inputText = "";
+    $scope.hasWon = $scope.isWin();
   }
 
   $scope.displayHearts = function(){
-    var hearts = [];
-    for (var i=0;i<$scope.lives;i++){
-      hearts.push("<3");
-    }
-    return hearts;
+    return new Array($scope.lives);
   }
-  
+
   $scope.isWin = function() {
-    if ($scope.lives > 0 && $scope.displayPlaceholderText() == $scope.targetWord) {
-      return true;
-    }
-    return false;
+    return ($scope.lives > 0 && $scope.placeholderText.join('') == $scope.targetWord);
   }
-  
+
   $scope.isLose = function() {
-    if ($scope.lives < 1 && $scope.isReady) {
-      return true;
-    }
-    return false;
+    return ($scope.lives < 1 && $scope.isReady);
   }
 }
